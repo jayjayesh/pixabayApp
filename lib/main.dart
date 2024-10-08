@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:myapp/features/pixabay/presentation/pages/home_page.dart';
 
-void main() {
+import 'common/environment.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: Environment.filename);
   runApp(const MyApp());
 }
 

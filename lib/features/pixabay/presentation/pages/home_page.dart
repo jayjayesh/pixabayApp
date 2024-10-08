@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:myapp/common/environment.dart';
 
 import 'package:myapp/common/utility.dart';
 
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   int _page = 1;
   bool _isLoading = false;
   final ScrollController _scrollController = ScrollController();
-  final pixabayApiKey = 'pixabayApiKey';
+  final pixabayApiKey = Environment.pixabayApiKey;
   final gridViewItemSpacing = 8.0;
 
   @override
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
         ),
         controller: _scrollController,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: MediaQuery.of(context).size.width ~/ 200,
+          crossAxisCount: MediaQuery.of(context).size.width ~/ 190,
           crossAxisSpacing: gridViewItemSpacing,
           mainAxisSpacing: gridViewItemSpacing,
         ),
