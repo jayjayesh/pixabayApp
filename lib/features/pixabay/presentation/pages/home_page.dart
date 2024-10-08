@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
 
   void _scrollListener() {
     if (_scrollController.position.pixels >=
-            _scrollController.position.maxScrollExtent &&
+            (_scrollController.position.maxScrollExtent * 0.6) &&
         !_isLoading) {
       _fetchImages();
     }
@@ -135,19 +135,14 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Hightss: ${constraints.maxHeight.toInt()}',
-                          style: const TextStyle(color: Colors.white)),
-                      Text('Widthss: ${constraints.maxWidth.toInt()}',
-                          style: const TextStyle(color: Colors.white))
-                    ],
-                  ),
-                  const Spacer(),
+                  Text(
+                      '${constraints.maxHeight.toInt()} x ${constraints.maxWidth.toInt()}',
+                      style: const TextStyle(color: Colors.white)),
                   Container(
-                    height: 50,
+                    height: 40,
+                    padding: const EdgeInsets.all(8.0),
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.bottomCenter,
@@ -155,27 +150,14 @@ class _HomePageState extends State<HomePage> {
                         colors: [Colors.black54, Colors.black12],
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Positioned(
-                            // add Positioned widget
-                            bottom: 0, // example position
-                            left: 0, // example position
-                            child: Text('Likes: $imageLikes',
-                                style: const TextStyle(color: Colors.white)),
-                          ),
-                          Positioned(
-                            // add Positioned widget
-                            bottom: 0, // example position
-                            right: 0, // example position
-                            child: Text('Views: $imageViews',
-                                style: const TextStyle(color: Colors.white)),
-                          ),
-                        ],
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Likes: $imageLikes',
+                            style: const TextStyle(color: Colors.white)),
+                        Text('Views: $imageViews',
+                            style: const TextStyle(color: Colors.white)),
+                      ],
                     ),
                   ),
                 ],
