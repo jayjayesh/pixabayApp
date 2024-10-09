@@ -8,23 +8,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:myapp/common/environment.dart';
-
-import 'package:myapp/common/utility.dart';
-
-class ImageItemModel {
-  final String imageUrl;
-  final int likes;
-
-  final int views;
-
-  ImageItemModel({
-    required this.imageUrl,
-    required this.likes,
-    required this.views,
-  });
-}
+import 'package:myapp/common/models/pixabay_image_item_model.dart';
+import 'package:myapp/features/pixabay/presentation/widgets/pixabay_grid_item_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<ImageItemModel> _images = [];
+  final List<PixabayImageItemModel> _images = [];
   int _page = 1;
   bool _isLoading = false;
   final ScrollController _scrollController = ScrollController();
@@ -67,7 +53,7 @@ class _HomePageState extends State<HomePage> {
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final newImages = (data['hits'] as List)
-          .map((item) => ImageItemModel(
+          .map((item) => PixabayImageItemModel(
               imageUrl: item['webformatURL'],
               likes: item['likes'],
               views: item['views']))
@@ -98,9 +84,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Pixabay Images'),
-      // ),
       body: GridView.builder(
         padding: EdgeInsets.only(
           top: gridViewItemSpacing,
@@ -116,55 +99,7 @@ class _HomePageState extends State<HomePage> {
         ),
         itemCount: _images.length,
         itemBuilder: (context, index) {
-          final image = _images[index];
-          final imageLikes =
-              AppUtility.formatNumberToCompactNumber(image.likes);
-          final imageViews =
-              AppUtility.formatNumberToCompactNumber(image.views);
-
-          return LayoutBuilder(builder: (context, constraints) {
-            return DecoratedBox(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  //image: NetworkImage(image.imageUrl),
-                  image: CachedNetworkImageProvider(
-                    image.imageUrl,
-                    maxHeight: constraints.maxHeight.toInt(),
-                    maxWidth: constraints.maxWidth.toInt(),
-                  ),
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      '${constraints.maxHeight.toInt()} x ${constraints.maxWidth.toInt()}',
-                      style: const TextStyle(color: Colors.white)),
-                  Container(
-                    height: 40,
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [Colors.black54, Colors.black12],
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Likes: $imageLikes',
-                            style: const TextStyle(color: Colors.white)),
-                        Text('Views: $imageViews',
-                            style: const TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          });
+          return PixabayGridItemWidget(index: index);
         },
       ),
     );
