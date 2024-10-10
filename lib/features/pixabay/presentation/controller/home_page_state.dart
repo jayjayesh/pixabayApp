@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/common/app_constants.dart';
 import 'package:myapp/common/environment.dart';
 import 'package:myapp/common/models/pixabay_image_item_model.dart';
 import 'package:http/http.dart' as http;
@@ -8,7 +9,9 @@ class HomePageState extends ChangeNotifier {
   final List<PixabayImageItemModel> _images = [];
   int _page = 1;
   bool _isLoading = false;
+  String _searchImageQuery = AppEnumImageSearchTerms.yellowFlowers.value;
 
+  String get searchImageQuery => _searchImageQuery;
   List<PixabayImageItemModel> get images => _images;
   int get page => _page;
   bool get isLoading => _isLoading;
@@ -17,6 +20,13 @@ class HomePageState extends ChangeNotifier {
   final pixabayApiKey = Environment.pixabayApiKey;
   final gridViewItemSpacing = 8.0;
   final ScrollController scrollController = ScrollController();
+  final searchImageQueryList = [
+    AppEnumImageSearchTerms.yellowFlowers,
+    AppEnumImageSearchTerms.redRoses,
+    AppEnumImageSearchTerms.sunflowers,
+    AppEnumImageSearchTerms.tulipFlowers,
+    AppEnumImageSearchTerms.lavenderFlowers,
+  ];
 
   // add to images
   void addAllImages(List<PixabayImageItemModel> images) {
@@ -27,6 +37,14 @@ class HomePageState extends ChangeNotifier {
   // clear images
   void clearImages() {
     _images.clear();
+    // notifyListeners();
+  }
+
+  // set search image query
+  void setSearchImageQuery(String query) {
+    _searchImageQuery = query;
+    clearImages();
+    fetchImages();
     // notifyListeners();
   }
 
@@ -51,7 +69,7 @@ class HomePageState extends ChangeNotifier {
     setLoading(true);
 
     final response = await http.get(Uri.parse(
-        'https://pixabay.com/api/?key=$pixabayApiKey&q=yellow+flowers&image_type=photo&per_page=20&page=$page'));
+        'https://pixabay.com/api/?key=$pixabayApiKey&q=$searchImageQuery&image_type=photo&per_page=20&page=$page'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

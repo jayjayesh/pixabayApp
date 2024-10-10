@@ -40,6 +40,32 @@ class _HomePageState extends State<HomePage> {
       create: (context) => homePageState,
       child: Consumer<HomePageState>(builder: (context, homePageState, child) {
         return Scaffold(
+          appBar: AppBar(
+            actions: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 40,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: homePageState.searchImageQueryList.map((item) {
+                    return IconButton(
+                      onPressed: () {
+                        homePageState.setSearchImageQuery(item.value);
+                      },
+                      icon: Text(
+                        item.title,
+                        style: TextStyle(
+                          color: homePageState.searchImageQuery == item.value
+                              ? Colors.black
+                              : Colors.grey,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              )
+            ],
+          ),
           body: GridView.builder(
             padding: EdgeInsets.only(
               top: homePageState.gridViewItemSpacing,
