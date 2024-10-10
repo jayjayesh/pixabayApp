@@ -1,10 +1,3 @@
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:2022858007.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:980123772.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1752391765.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:2565976469.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3162804888.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1200432839.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1567601484.
 import 'package:flutter/material.dart';
 import 'package:myapp/common/service_locator.dart';
 import 'package:myapp/features/pixabay/presentation/controller/home_page_state.dart';
@@ -71,11 +64,12 @@ class _HomePageState extends State<HomePage> {
               top: homePageState.gridViewItemSpacing,
               left: homePageState.gridViewItemSpacing,
               right: homePageState.gridViewItemSpacing,
-              bottom: MediaQuery.of(context).size.height * 0.4,
+              bottom: MediaQuery.of(context).size.height *
+                  0.4, // to allow desktop room to load next page
             ),
             controller: homePageState.scrollController,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: MediaQuery.of(context).size.width ~/ 190,
+              crossAxisCount: MediaQuery.of(context).size.width ~/ 210,
               crossAxisSpacing: homePageState.gridViewItemSpacing,
               mainAxisSpacing: homePageState.gridViewItemSpacing,
             ),

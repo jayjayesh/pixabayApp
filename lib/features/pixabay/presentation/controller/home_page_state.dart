@@ -37,6 +37,7 @@ class HomePageState extends ChangeNotifier {
   // clear images
   void clearImages() {
     _images.clear();
+    setPage(1);
     // notifyListeners();
   }
 
@@ -75,7 +76,9 @@ class HomePageState extends ChangeNotifier {
       final data = json.decode(response.body);
       final newImages = (data['hits'] as List)
           .map((item) => PixabayImageItemModel(
-              imageUrl: item['webformatURL'],
+              imageUrlPreview: item['previewURL'],
+              imageUrlWebFormate: item['webformatURL'],
+              imageUrlLarge: item['largeImageURL'],
               likes: item['likes'],
               views: item['views']))
           .toList();
