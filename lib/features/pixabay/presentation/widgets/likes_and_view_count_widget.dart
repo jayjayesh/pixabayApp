@@ -1,20 +1,20 @@
-
 import 'package:flutter/material.dart';
 import 'package:myapp/common/utility.dart';
 
 class LikesAndViewCountWidget extends StatelessWidget {
   const LikesAndViewCountWidget({
     super.key,
-    required this.index,
+    required this.likes,
+    required this.views,
   });
 
-  final int index;
+  final int likes;
+  final int views;
 
   @override
   Widget build(BuildContext context) {
-    final image = _images[index];
-    final imageLikes = AppUtility.formatNumberToCompactNumber(image.likes);
-    final imageViews = AppUtility.formatNumberToCompactNumber(image.views);
+    final imageLikes = AppUtility.formatNumberToCompactNumber(likes);
+    final imageViews = AppUtility.formatNumberToCompactNumber(views);
 
     return Container(
       height: 40,

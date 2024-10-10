@@ -3,10 +3,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:myapp/features/pixabay/presentation/pages/home_page.dart';
 
 import 'common/environment.dart';
+import 'common/service_locator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: Environment.filename);
+  setupServiceLocator();
   runApp(const MyApp());
 }
 
