@@ -1,6 +1,10 @@
 # pixabay
 
-A new Flutter project.
+I'm pleased to demonstarate a flutter project, which integrates the Pixabay API and adheres to industry-standard code quality guidelines.
+
+Web-Preview : https://pixabayapp.web.app
+
+To review my coding approach, I invite you to explore [Git commit history](https://github.com/jayjayesh/pixabayApp/network), where you'll find regular, task-based updates demonstrating my commitment to transparent and organized development.
 
 ## Getting Started
 
