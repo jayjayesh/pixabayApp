@@ -35,6 +35,12 @@ class PixabayGridItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
+                '${MediaQuery.of(context).size.width ~/ 210}',
+                style: const TextStyle(
+                  color: kDebugMode ? Colors.white : Colors.transparent,
+                ),
+              ),
+              Text(
                 '${constraints.maxHeight.toInt()} x ${constraints.maxWidth.toInt()}',
                 style: const TextStyle(
                   color: kDebugMode ? Colors.white : Colors.transparent,

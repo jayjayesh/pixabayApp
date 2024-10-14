@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomePageState homePageState = serviceLocator<HomePageState>();
+  late int _gridviewCount;
 
   @override
   void initState() {
@@ -29,6 +30,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var divider = MediaQuery.of(context).size.width / 210;
+    // Check if devider has fractional over 0.8
+    // NOTE : We could use divider.roundof() instead this custome solution
+    if (divider - divider.floorToDouble() > 0.9) {
+      _gridviewCount = divider.ceilToDouble().toInt();
+    } else {
+      _gridviewCount = divider.floorToDouble().toInt();
+    }
+
     return ChangeNotifierProvider<HomePageState>(
       create: (context) => homePageState,
       child: Consumer<HomePageState>(builder: (context, homePageState, child) {
@@ -69,7 +79,8 @@ class _HomePageState extends State<HomePage> {
             ),
             controller: homePageState.scrollController,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: MediaQuery.of(context).size.width ~/ 210,
+              crossAxisCount: _gridviewCount,
+              // crossAxisCount: MediaQuery.of(context).size.width ~/ 210,
               crossAxisSpacing: homePageState.gridViewItemSpacing,
               mainAxisSpacing: homePageState.gridViewItemSpacing,
             ),
