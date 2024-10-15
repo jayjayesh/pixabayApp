@@ -8,16 +8,18 @@ class PixabayGridItemWidget extends StatelessWidget {
   const PixabayGridItemWidget({
     super.key,
     required this.pixabayImageItemModel,
+    this.onTapPreviewImage,
   });
 
   final PixabayImageItemModel pixabayImageItemModel;
+  final void Function()? onTapPreviewImage;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return InkWell(
         onTap: () {
-          onTapPreviewImage(context);
+          onTapPreviewImage?.call();
         },
         child: DecoratedBox(
           decoration: BoxDecoration(
@@ -55,44 +57,5 @@ class PixabayGridItemWidget extends StatelessWidget {
         ),
       );
     });
-  }
-
-  void onTapPreviewImage(BuildContext context) {
-    final popupWidgetSize =
-        MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
-            ? MediaQuery.of(context).size.height * 0.9
-            : MediaQuery.of(context).size.width * 0.9;
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          contentPadding: EdgeInsets.zero,
-          clipBehavior: Clip.hardEdge,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          content: InteractiveViewer(
-            child: CachedNetworkImage(
-              fit: BoxFit.cover,
-              width: popupWidgetSize,
-              height: popupWidgetSize,
-              imageUrl: pixabayImageItemModel.imageUrlLarge,
-              placeholder: (context, url) {
-                return CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  width: popupWidgetSize,
-                  height: popupWidgetSize,
-                  imageUrl: pixabayImageItemModel.imageUrlPreview,
-                );
-              },
-              errorWidget: (context, url, error) {
-                return const Center(child: Icon(Icons.broken_image));
-              },
-            ),
-          ),
-        );
-      },
-    );
   }
 }
