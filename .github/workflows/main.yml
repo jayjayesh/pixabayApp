@@ -1,0 +1,42 @@
+name: Flutter App Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # env:
+    #   ANDROID_FIREBASE_APP_ID: ${{ secrets.ANDROID_FIREBASE_APP_ID }}
+    #   IOS_FIREBASE_APP_ID: ${{ secrets.IOS_FIREBASE_APP_ID }}
+    #   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.22.0'  # Use the latest stable version or specify the version you need
+        channel: 'stable'
+        cache: true
+      
+    - name: Check Installed flutter sdk version
+      run: flutter --version
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    # - name: Run Tests
+    #   run: flutter test
