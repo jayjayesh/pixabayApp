@@ -70,7 +70,7 @@ class HomePageState extends ChangeNotifier {
     setLoading(true);
 
     final response = await http.get(Uri.parse(
-        'https://pixabay.com/api/?key=$pixabayApiKey&q=$searchImageQuery&image_type=photo&per_page=20&page=$page'));
+        '${Environment.apiEndPoint}/api/?key=$pixabayApiKey&q=$searchImageQuery&image_type=photo&per_page=20&page=$page'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

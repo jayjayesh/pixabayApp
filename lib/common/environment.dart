@@ -10,6 +10,10 @@ class Environment {
     return 'env.development';
   }
 
+  static String get apiEndPoint {
+    return dotenv.env['API_ENDPOINT'] ?? "API_ENDPOINT not found";
+  }
+
   static String get pixabayApiKey {
     return dotenv.env['PIXABAY_API_KEY'] ?? "PIXABAY_API_KEY not found";
   }
