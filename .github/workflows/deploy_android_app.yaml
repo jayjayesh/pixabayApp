@@ -39,14 +39,14 @@ jobs:
     - name: 'Create env.development file'
       run: |
         touch env.development
-        echo API_ENDPOINT="https://pixabay.com" >> env.development
+        echo API_ENDPOINT=${{ secrets.API_ENDPOINT_DEV }} >> env.development
         echo PIXABAY_API_KEY=${{ secrets.PIXABAY_API_KEY }} >> env.development
         cat env.development
 
     - name: 'Create env.production file'
       run: |
         touch env.production
-        echo API_ENDPOINT="https://pixabay.com" >> env.production
+        echo API_ENDPOINT=${{ secrets.API_ENDPOINT_PROD }} >> env.production
         echo PIXABAY_API_KEY=${{ secrets.PIXABAY_API_KEY }} >> env.production
         cat env.production
 
