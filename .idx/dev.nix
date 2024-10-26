@@ -8,7 +8,12 @@
     pkgs.jdk17
     pkgs.unzip
     pkgs.tzdata
+    pkgs.docker  # Add Docker
+    pkgs.act     # Add Act
   ];
+
+  services.docker.enable = true; 
+  
   # Sets environment variables in the workspace
   env = {
     TZDIR = "/usr/share/zoneinfo";
