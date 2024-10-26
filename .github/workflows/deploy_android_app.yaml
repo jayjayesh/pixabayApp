@@ -16,6 +16,8 @@ jobs:
     name: Build CI (Android)
     runs-on: ubuntu-latest
 
+    # envirenment: production
+
     # env:
     #   ANDROID_FIREBASE_APP_ID: ${{ secrets.ANDROID_FIREBASE_APP_ID }}
     #   IOS_FIREBASE_APP_ID: ${{ secrets.IOS_FIREBASE_APP_ID }}

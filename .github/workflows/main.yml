@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  test:
+  performUnitTest:
     runs-on: ubuntu-latest
 
     # env:
